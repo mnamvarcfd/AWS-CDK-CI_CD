@@ -11,9 +11,8 @@ export class LambdaStack extends cdk.Stack {
 
       const lambdaFunction = new lambda.Function(this, 'Lambda', {
         runtime: lambda.Runtime.NODEJS_14_X,
-        code: lambda.Code.fromAsset(path.join(path.join(__dirname, '..', 'src'))),
-        handler: 'cdk-lambda.handler',
-        functionName: 'cdk-lambda',
+        handler: 'index.handler',
+        code: lambda.Code.fromInline('exports.handler = _ => "hello codepipline"')
       });
 
     }
