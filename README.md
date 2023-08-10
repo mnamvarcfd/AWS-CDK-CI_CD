@@ -32,38 +32,46 @@ Use the AWS Cloud Development Kit (CDK) to bootstrap your environment for deploy
 
 4-Store the Github token in secret manager
 
+ aws secretsmanager create-secret --name github-token --secret-string YOUR-SECRECT-TOKEN-FROM-GITHUB --region YOUR-REGION 
+
 
 
 // Use this code snippet in your app.
-// If you need more information about configurations or implementing the sample code, visit the AWS docs:
-// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started.html
+// If you need more information about configurations or implementing the sample
+// code, visit the AWS docs:
+// https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html
 
-import {
-  SecretsManagerClient,
-  GetSecretValueCommand,
-} from "@aws-sdk/client-secrets-manager";
+// Make sure to import the following packages in your code
+// import software.amazon.awssdk.regions.Region;
+// import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+// import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
+// import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;	
 
-const secret_name = "GitHubToken";
+public static void getSecret() {
 
-const client = new SecretsManagerClient({
-  region: "ca-central-1",
-});
+    String secretName = "github-token";
+    Region region = Region.of("ca-central-1");
 
-let response;
+    // Create a Secrets Manager client
+    SecretsManagerClient client = SecretsManagerClient.builder()
+            .region(region)
+            .build();
 
-try {
-  response = await client.send(
-    new GetSecretValueCommand({
-      SecretId: secret_name,
-      VersionStage: "AWSCURRENT", // VersionStage defaults to AWSCURRENT if unspecified
-    })
-  );
-} catch (error) {
-  // For a list of exceptions thrown, see
-  // https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
-  throw error;
+    GetSecretValueRequest getSecretValueRequest = GetSecretValueRequest.builder()
+            .secretId(secretName)
+            .build();
+
+    GetSecretValueResponse getSecretValueResponse;
+
+    try {
+        getSecretValueResponse = client.getSecretValue(getSecretValueRequest);
+    } catch (Exception e) {
+        // For a list of exceptions thrown, see
+        // https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
+        throw e;
+    }
+
+    String secret = getSecretValueResponse.secretString();
+
+    // Your code goes here.
 }
-
-const secret = response.SecretString;
-
-// Your code goes here
