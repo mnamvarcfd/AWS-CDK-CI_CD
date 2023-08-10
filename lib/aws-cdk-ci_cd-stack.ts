@@ -1,6 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import * as codepipeline from 'aws-cdk-lib/aws-codepipeline';
 import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
 
 
@@ -12,7 +11,7 @@ export class AwsCdkCiCdStack extends cdk.Stack {
       pipelineName: 'MyPipeline',
       crossAccountKeys: false,
       synth: new ShellStep('Synth', {
-      input: CodePipelineSource.gitHub('mohamed-ali-elsharawy/aws-cdk-ci_cd', 'main'),
+      input: CodePipelineSource.gitHub('mnamvarcfd/AWS-CDK-CI_CD', 'main'),
       commands: ["npm ci", "npm run build", "npx cdk synth"]
       })
     });

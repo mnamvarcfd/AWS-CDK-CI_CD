@@ -15,10 +15,13 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 
 
+https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html
+
 1- Bootstrap AWS environment:
 Use the AWS Cloud Development Kit (CDK) to bootstrap your environment for deploying infrastructure.
 
-`npx cdk bootstrap aws://<account_number>/<region> --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess`
+`npx cdk bootstrap aws://ACCOUNT-NUMBER/REGION --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess`
+
 
 2- Initialize project:
 
