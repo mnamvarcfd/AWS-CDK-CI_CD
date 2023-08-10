@@ -20,14 +20,14 @@ export class AwsCdkCiCdStack extends cdk.Stack {
 
 
     const developStage = pipeline.addStage( new PipelineAppStage(this, 'development', {
-      env: { account: '123456789012', region: 'ca-central-1' } 
+      env: { account: '919622682568', region: 'ca-central-1' } 
     }));
 
 
     developStage.addPost(new ManualApprovalStep('ApproveDevelopManually'));
 
     const productionStage = pipeline.addStage( new PipelineAppStage(this, 'production', {
-      env: { account: '123456789012', region: 'ca-central-1' } 
+      env: { account: '919622682568', region: 'ca-central-1' } 
     })
 
     );
